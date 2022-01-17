@@ -11,12 +11,23 @@
 <div id="app"></div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
-    var vm = new Vue({
-        el:'#app',
-        data:{
-            message:'hi'
+    // var vm = new Vue({
+    //     el:'#app',
+    //     data:{
+    //         message:'hi'
+    //     }
+    // });
+
+    //생성자함수
+    function Vue(){
+        this.logText = function (){
+            console.log('hi^^');
         }
-    });
+    }
+
+    var vm = new Vue();
+    vm.logText(); // hi^^
+
 </script>
 </body>
 </html>
