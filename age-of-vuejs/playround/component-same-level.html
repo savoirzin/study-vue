@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>event emit</title>
+</head>
+<body>
+<div id="app">
+    <!--    <app-header v-on:하위 컴포넌트에서 발생한 이름="상위컴포넌트의 메서드이름"></app-header> -->
+    <!-- 같은 컴포넌트 레벨 간의 통신 방법 -->
+    <app-header v-bind:propsdata="num"></app-header>
+    <app-content v-on:pass="deliveryNum"></app-content>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var appHeader = {
+        template:'<div>header</div>',
+        props:['propsdata']
+    }
+    var appContent = {
+        template:'<button v-on:click="passNum">pass</button>', // appHeader에서 root로 이벤트를 보낼 것
+        methods:{
+            passNum:function () {
+                this.$emit('pass', 10); //pass라는 이벤트 발생시킴
+            }
+        }
+
+    }
+
+
+    new Vue({ // 인스턴스 생성
+        el : '#app', // 인스턴스에 dom연결
+        components:{
+            'app-header':appHeader,
+            'app-content':appContent
+        },
+        data:{
+            num:0
+        },
+        methods:{
+           deliveryNum:function (value) {
+               this.num = value;
+           }
+        },
+    });
+</script>
+</body>
+</html>
