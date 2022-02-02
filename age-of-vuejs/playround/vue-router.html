@@ -8,11 +8,25 @@
     <title>Document</title>
 </head>
 <body>
-<div id="app"></div>
+<div id="app">
+    <div>
+        <!-- router-link : 최종적으로 화면에 anchor태그로 변환되서 나타남 -->
+        <router-link to="/login">login</router-link>
+        <router-link to="/main">main</router-link>
+        <!--
+            <a href="/login">login</a>
+            <a href="/main">main</a>
+        -->
+    </div>
+    <router-view></router-view>
+    <!--
+        페이지 이동과 관련된것을 뷰 라우터로 이용할 수 있다.
+
+    -->
+</div>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 <script>
-    // 라우터가 표시되는 영역 및 router-view 태그 설명 부터..!
     var LoginComponent = {
         template:'<div>login</div>'
     }
@@ -23,12 +37,14 @@
     var router = new VueRouter({
         // routes : 페이지의 라우팅 정보 - url로 이동할지 배열로 담긴다. 페이지 개수만큼 객체의 개수가 필요하다.
         routes:[
+            //로그인페이지정보
             {
                 // page url
                 path : '/login',
-                // 해당 url에서 표시될 컴포넌
-                component : LoginComponent
+                // 해당 url에서 표시될 컴포넌트
+                component : LoginComponent // 해당 url로 이동했을때 뿌려지는 컴포너트 components가 아님! 해당 페이지마다 뿌려지는 컴포넌트는 1개이기 떄문에!!!
             },
+            // 메인페이지 정보
             {
                 path : '/main',
                 component: MainComponent
@@ -36,7 +52,9 @@
         ]
     });
     new Vue({
-        el:'#app'
+        mode:'history', // url로 이동시 # 해시태그 없앰
+        el:'#app',
+        router: router // var router 23번째 변수를 가리
     });
 </script>
 </body>
